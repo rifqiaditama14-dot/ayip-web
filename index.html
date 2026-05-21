@@ -1,0 +1,1560 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rifqi Ayip — Personal Branding</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <style>
+    :root {
+      --pink-blush:   #f7d6e0;
+      --pink-light:   #f2c4ce;
+      --pink-mid:     #e8a0b0;
+      --pink-deep:    #c9687e;
+      --rose:         #b5465c;
+      --cream:        #fdf6f0;
+      --ivory:        #fef9f5;
+      --lace:         #fce8ee;
+      --text-dark:    #3a2030;
+      --text-mid:     #6b3d50;
+      --text-soft:    #9b6b7a;
+      --ribbon:       #d4849a;
+      --gold:         #c9a96e;
+      --white:        #ffffff;
+      --sidebar-w:    260px;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html, body {
+      height: 100%;
+      font-family: 'DM Sans', sans-serif;
+      background: var(--ivory);
+      color: var(--text-dark);
+      overflow-x: hidden;
+    }
+
+    /* ─── NOISE TEXTURE OVERLAY ─── */
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+      pointer-events: none; z-index: 9999;
+    }
+
+    /* ─── SIDEBAR ─── */
+    .sidebar {
+      position: fixed; left: 0; top: 0; bottom: 0;
+      width: var(--sidebar-w);
+      background: linear-gradient(180deg, #fce8ee 0%, #f7d6e0 40%, #edd0d8 100%);
+      border-right: 1.5px solid var(--pink-mid);
+      display: flex; flex-direction: column;
+      align-items: center; padding: 40px 20px;
+      z-index: 1000;
+      box-shadow: 4px 0 24px rgba(197,104,126,0.12);
+      transform: translateX(-100%);
+      transition: transform 0.3s ease;
+    }
+
+    .sidebar.active {
+      transform: translateX(0);
+    }
+
+    /* Sidebar overlay */
+    .sidebar-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 999;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+
+    .sidebar-overlay.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .sidebar-logo {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 1.6rem;
+      color: var(--rose);
+      text-align: center;
+      line-height: 1.2;
+      margin-bottom: 6px;
+    }
+
+    .sidebar-tagline {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.78rem;
+      color: var(--text-soft);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 32px;
+      text-align: center;
+    }
+
+    /* Bow decoration */
+    .bow {
+      width: 60px; margin-bottom: 24px;
+      opacity: 0.9;
+    }
+
+    .sidebar-divider {
+      width: 60px; height: 1px;
+      background: linear-gradient(90deg, transparent, var(--ribbon), transparent);
+      margin-bottom: 28px;
+    }
+
+    nav { width: 100%; }
+    nav ul { list-style: none; }
+    nav ul li { margin-bottom: 4px; }
+
+    nav ul li a {
+      display: flex; align-items: center; gap: 10px;
+      padding: 10px 18px;
+      border-radius: 50px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--text-mid);
+      text-decoration: none;
+      letter-spacing: 0.04em;
+      transition: all 0.25s ease;
+      position: relative;
+    }
+
+    nav ul li a:hover,
+    nav ul li a.active {
+      background: rgba(255,255,255,0.65);
+      color: var(--rose);
+      box-shadow: 0 2px 12px rgba(197,104,126,0.18);
+    }
+
+    nav ul li a .nav-icon { font-size: 1rem; }
+
+    .sidebar-footer {
+      margin-top: auto;
+      text-align: center;
+    }
+
+    .sidebar-footer p {
+      font-size: 0.72rem;
+      color: var(--text-soft);
+      margin-bottom: 12px;
+      font-family: 'Cormorant Garamond', serif;
+      letter-spacing: 0.06em;
+    }
+
+    .social-links { display: flex; gap: 10px; justify-content: center; }
+    .social-links a {
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.7);
+      border: 1px solid var(--pink-mid);
+      display: flex; align-items: center; justify-content: center;
+      text-decoration: none;
+      font-size: 0.9rem;
+      color: var(--rose);
+      transition: all 0.2s;
+    }
+    .social-links a:hover {
+      background: var(--rose);
+      color: white;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(181,70,92,0.3);
+    }
+
+    /* ─── MAIN CONTENT ─── */
+    .main {
+      margin-left: 0;
+      min-height: 100vh;
+    }
+
+    /* ─── TOP NAV BAR ─── */
+    .topbar {
+      position: sticky; top: 0; z-index: 50;
+      background: rgba(253,246,240,0.9);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--pink-light);
+      padding: 14px 40px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+
+    .topbar-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.82rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--text-soft);
+    }
+
+    .topbar-btns { display: flex; gap: 10px; align-items: center; margin-left: auto; }
+
+    .menu-toggle {
+      display: block;
+      background: transparent;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      padding: 8px;
+      color: var(--text-mid);
+      transition: all 0.2s;
+    }
+
+    .menu-toggle:hover {
+      color: var(--rose);
+    }
+    .btn-pill {
+      padding: 7px 20px;
+      border-radius: 50px;
+      font-size: 0.78rem;
+      font-weight: 500;
+      border: 1.5px solid var(--ribbon);
+      cursor: pointer;
+      transition: all 0.2s;
+      text-decoration: none;
+      display: inline-block;
+    }
+    .btn-outline { background: transparent; color: var(--rose); }
+    .btn-fill { background: var(--rose); color: white; border-color: var(--rose); }
+    .btn-outline:hover { background: var(--lace); }
+    .btn-fill:hover { background: var(--ribbon); transform: translateY(-1px); box-shadow: 0 4px 16px rgba(181,70,92,0.3); }
+
+    /* ─── PAGES ─── */
+    .page { display: none; padding: 60px 48px; animation: fadeIn 0.5s ease; }
+    .page.active { display: block; }
+
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
+
+    /* ─── PAGE 1: HOME ─── */
+    .home-hero {
+      display: grid;
+      grid-template-columns: 1fr 380px;
+      gap: 60px;
+      align-items: center;
+      min-height: calc(100vh - 160px);
+    }
+
+    .hero-text {}
+
+    .hero-greeting {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.9rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--ribbon);
+      margin-bottom: 16px;
+      display: flex; align-items: center; gap: 12px;
+    }
+    .hero-greeting::before {
+      content: '';
+      display: inline-block;
+      width: 32px; height: 1px;
+      background: var(--ribbon);
+    }
+
+    .hero-name {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.8rem, 5vw, 4.5rem);
+      font-weight: 700;
+      color: var(--text-dark);
+      line-height: 1.1;
+      margin-bottom: 8px;
+    }
+
+    .hero-name span { color: var(--rose); font-style: italic; }
+
+    .hero-nickname {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 1.5rem;
+      color: var(--text-soft);
+      margin-bottom: 24px;
+    }
+
+    .hero-tagline {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: linear-gradient(135deg, var(--pink-blush), var(--lace));
+      border: 1.5px solid var(--pink-light);
+      padding: 10px 24px;
+      border-radius: 50px;
+      font-size: 0.92rem;
+      color: var(--text-mid);
+      font-weight: 500;
+      margin-bottom: 32px;
+      box-shadow: 0 2px 12px rgba(197,104,126,0.1);
+    }
+
+    .hero-desc {
+      font-size: 1rem;
+      line-height: 1.8;
+      color: var(--text-mid);
+      max-width: 520px;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.12rem;
+      margin-bottom: 40px;
+    }
+
+    .hero-ctas { display: flex; gap: 14px; flex-wrap: wrap; }
+
+    .hero-photo-wrap {
+      position: relative;
+      display: flex; align-items: center; justify-content: center;
+    }
+
+    .hero-photo-frame {
+      width: 340px; height: 420px;
+      border-radius: 200px 200px 120px 120px;
+      background: linear-gradient(160deg, var(--pink-blush), var(--pink-mid));
+      border: 3px solid var(--pink-light);
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 20px 60px rgba(197,104,126,0.25), inset 0 0 40px rgba(255,255,255,0.3);
+    }
+
+    .hero-photo-frame img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      object-position: top center;
+    }
+
+    .photo-placeholder {
+      width: 100%; height: 100%;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      gap: 12px;
+      color: var(--ribbon);
+    }
+    .photo-placeholder .icon { font-size: 3rem; opacity: 0.5; }
+    .photo-placeholder p { font-size: 0.82rem; font-style: italic; opacity: 0.7; text-align: center; padding: 0 20px; }
+
+    /* Decorative bow on photo */
+    .photo-bow {
+      position: absolute;
+      top: -18px; left: 50%; transform: translateX(-50%);
+      font-size: 2.4rem;
+      filter: drop-shadow(0 2px 8px rgba(181,70,92,0.3));
+      z-index: 2;
+    }
+
+    .deco-circle {
+      position: absolute;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--pink-blush), transparent);
+      border: 1px solid var(--pink-light);
+    }
+    .deco-circle.c1 { width: 380px; height: 380px; top: 20px; right: -40px; z-index: -1; opacity: 0.6; }
+    .deco-circle.c2 { width: 200px; height: 200px; bottom: 30px; left: 20px; z-index: -1; opacity: 0.4; }
+
+    /* ─── SECTION HEADERS ─── */
+    .section-header {
+      text-align: center;
+      margin-bottom: 56px;
+    }
+    .section-eyebrow {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.8rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--ribbon);
+      margin-bottom: 10px;
+    }
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      color: var(--text-dark);
+      font-style: italic;
+    }
+    .section-title span { color: var(--rose); }
+    .section-underline {
+      width: 80px; height: 2px;
+      background: linear-gradient(90deg, var(--ribbon), var(--pink-blush));
+      margin: 16px auto 0;
+      border-radius: 2px;
+    }
+
+    /* ─── PAGE 2: ABOUT ─── */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+      margin-bottom: 40px;
+    }
+
+    .about-card {
+      background: linear-gradient(135deg, var(--white), var(--ivory));
+      border: 1.5px solid var(--pink-light);
+      border-radius: 24px;
+      padding: 32px;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .about-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(197,104,126,0.15);
+    }
+    .about-card::before {
+      content: '';
+      position: absolute; top: 0; right: 0;
+      width: 80px; height: 80px;
+      background: radial-gradient(circle at top right, var(--pink-blush), transparent);
+      border-radius: 0 24px 0 80px;
+    }
+
+    .card-icon { font-size: 1.8rem; margin-bottom: 12px; }
+    .card-label {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.75rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--ribbon);
+      margin-bottom: 8px;
+    }
+    .card-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem;
+      color: var(--text-dark);
+      margin-bottom: 16px;
+    }
+    .card-content {
+      font-size: 0.9rem;
+      line-height: 1.75;
+      color: var(--text-mid);
+    }
+
+    .edu-item {
+      display: flex; gap: 14px;
+      margin-bottom: 14px;
+      align-items: flex-start;
+    }
+    .edu-dot {
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      background: var(--ribbon);
+      margin-top: 5px; flex-shrink: 0;
+    }
+    .edu-text { font-size: 0.88rem; color: var(--text-mid); line-height: 1.5; }
+    .edu-text strong { color: var(--text-dark); font-weight: 500; }
+    .edu-text .current {
+      font-size: 0.75rem;
+      background: var(--pink-blush);
+      color: var(--rose);
+      padding: 2px 8px;
+      border-radius: 10px;
+      margin-left: 6px;
+    }
+
+    .tag-list { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+    .tag {
+      background: var(--lace);
+      border: 1px solid var(--pink-light);
+      color: var(--rose);
+      font-size: 0.8rem;
+      padding: 5px 14px;
+      border-radius: 50px;
+    }
+
+    .full-card { grid-column: 1 / -1; }
+
+    /* soft skill / hard skill two-col */
+    .skills-two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    .skill-group-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.75rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--ribbon);
+      margin-bottom: 10px;
+    }
+
+    /* ─── PAGE 3: SKILLS ─── */
+    .skills-wrap {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+
+    .skill-item {
+      background: var(--white);
+      border: 1.5px solid var(--pink-light);
+      border-radius: 16px;
+      padding: 20px 24px;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .skill-item:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 30px rgba(197,104,126,0.15);
+    }
+
+    .skill-header {
+      display: flex; justify-content: space-between;
+      align-items: center; margin-bottom: 12px;
+    }
+    .skill-name {
+      font-weight: 500;
+      font-size: 0.92rem;
+      color: var(--text-dark);
+      display: flex; align-items: center; gap: 8px;
+    }
+    .skill-name .skill-icon { font-size: 1.1rem; }
+    .skill-pct {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--rose);
+    }
+
+    .skill-bar-bg {
+      height: 8px;
+      background: var(--lace);
+      border-radius: 50px;
+      overflow: hidden;
+    }
+    .skill-bar-fill {
+      height: 100%;
+      border-radius: 50px;
+      background: linear-gradient(90deg, var(--ribbon), var(--pink-deep));
+      position: relative;
+      transition: width 1.2s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+    .skill-bar-fill::after {
+      content: '';
+      position: absolute; right: 0; top: 0; bottom: 0;
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--rose);
+      box-shadow: 0 0 8px var(--rose);
+    }
+
+    /* ─── PAGE 4: PORTFOLIO ─── */
+    .porto-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .porto-card {
+      background: var(--white);
+      border: 1.5px solid var(--pink-light);
+      border-radius: 20px;
+      overflow: hidden;
+      transition: transform 0.25s, box-shadow 0.25s;
+    }
+    .porto-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 16px 48px rgba(197,104,126,0.2);
+    }
+
+    .porto-thumb {
+      height: 160px;
+      background: linear-gradient(135deg, var(--pink-blush), var(--lace));
+      display: flex; align-items: center; justify-content: center;
+      font-size: 2.5rem;
+      position: relative;
+    }
+    .porto-thumb::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(to bottom, transparent 50%, rgba(253,246,240,0.6));
+    }
+
+    .porto-body { padding: 20px; }
+    .porto-category {
+      font-size: 0.72rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--ribbon);
+      font-family: 'Cormorant Garamond', serif;
+      margin-bottom: 6px;
+    }
+    .porto-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.05rem;
+      color: var(--text-dark);
+      margin-bottom: 8px;
+    }
+    .porto-desc {
+      font-size: 0.82rem;
+      color: var(--text-soft);
+      line-height: 1.6;
+      margin-bottom: 16px;
+    }
+    .porto-link {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 0.8rem;
+      color: var(--rose);
+      text-decoration: none;
+      font-weight: 500;
+      border-bottom: 1px dashed var(--ribbon);
+      padding-bottom: 2px;
+    }
+    .porto-link:hover { border-style: solid; }
+
+    .porto-add-note {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 40px;
+      background: linear-gradient(135deg, var(--lace), var(--ivory));
+      border: 2px dashed var(--pink-light);
+      border-radius: 20px;
+      color: var(--text-soft);
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1rem;
+      font-style: italic;
+    }
+
+    /* ─── PAGE 5: CV ─── */
+    .cv-wrapper {
+      max-width: 860px; margin: 0 auto;
+      background: var(--white);
+      border: 1.5px solid var(--pink-light);
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 8px 48px rgba(197,104,126,0.12);
+    }
+
+    .cv-header {
+      background: linear-gradient(135deg, var(--pink-blush) 0%, var(--lace) 60%, var(--ivory) 100%);
+      padding: 48px;
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 36px;
+      align-items: center;
+      border-bottom: 1.5px solid var(--pink-light);
+      position: relative;
+    }
+
+    .cv-header::before {
+      content: '🎀';
+      position: absolute; top: 20px; right: 40px;
+      font-size: 2.5rem;
+      opacity: 0.4;
+    }
+    .cv-header::after {
+      content: '🌸';
+      position: absolute; bottom: 20px; right: 80px;
+      font-size: 1.5rem;
+      opacity: 0.3;
+    }
+
+    .cv-photo {
+      width: 130px; height: 160px;
+      border-radius: 100px 100px 60px 60px;
+      background: linear-gradient(135deg, var(--pink-mid), var(--pink-blush));
+      border: 3px solid var(--pink-light);
+      overflow: hidden;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 2.5rem;
+      color: var(--ribbon);
+      box-shadow: 0 8px 24px rgba(197,104,126,0.2);
+    }
+    .cv-photo img { width: 100%; height: 100%; object-fit: cover; object-position: top; }
+
+    .cv-header-info {}
+    .cv-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--text-dark);
+      margin-bottom: 4px;
+    }
+    .cv-role {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 1rem;
+      color: var(--ribbon);
+      letter-spacing: 0.08em;
+      margin-bottom: 16px;
+    }
+    .cv-contacts {
+      display: flex; flex-wrap: wrap; gap: 10px;
+    }
+    .cv-contact-item {
+      display: flex; align-items: center; gap: 6px;
+      font-size: 0.82rem;
+      color: var(--text-mid);
+      background: rgba(255,255,255,0.6);
+      padding: 5px 12px;
+      border-radius: 50px;
+      border: 1px solid var(--pink-light);
+    }
+
+    .cv-body {
+      display: grid;
+      grid-template-columns: 260px 1fr;
+    }
+
+    .cv-left {
+      background: linear-gradient(180deg, var(--lace), var(--ivory));
+      border-right: 1.5px solid var(--pink-light);
+      padding: 36px 28px;
+    }
+
+    .cv-right { padding: 36px; }
+
+    .cv-section { margin-bottom: 32px; }
+    .cv-section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 0.8rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--rose);
+      margin-bottom: 16px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--pink-light);
+      display: flex; align-items: center; gap: 8px;
+    }
+
+    .cv-skill-item { margin-bottom: 8px; display: flex; align-items: center; gap: 6px; }
+    .cv-skill-item::before { content: '✦'; color: var(--rose); font-weight: bold; font-size: 0.9rem; flex-shrink: 0; }
+    .cv-skill-label { font-size: 0.82rem; color: var(--text-dark); }
+
+    .cv-download-btn {
+      position: fixed;
+      bottom: 40px;
+      left: 40px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 20px;
+      background: linear-gradient(135deg, var(--rose), var(--pink-deep));
+      color: var(--white);
+      border: none;
+      border-radius: 50px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s;
+      box-shadow: 0 4px 16px rgba(181,70,92,0.3);
+      z-index: 100;
+    }
+    .cv-download-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(181,70,92,0.4);
+    }
+
+    .cv-info-row {
+      display: flex; gap: 8px;
+      margin-bottom: 10px;
+      font-size: 0.83rem;
+    }
+    .cv-info-label { color: var(--text-soft); min-width: 70px; font-family: 'Cormorant Garamond', serif; }
+    .cv-info-val { color: var(--text-dark); font-weight: 500; }
+
+    .cv-tag-wrap { display: flex; flex-wrap: wrap; gap: 6px; }
+    .cv-tag {
+      background: var(--lace);
+      border: 1px solid var(--pink-light);
+      color: var(--rose);
+      font-size: 0.73rem;
+      padding: 3px 10px;
+      border-radius: 50px;
+    }
+
+    .cv-edu-item { margin-bottom: 18px; }
+    .cv-edu-school { font-weight: 500; font-size: 0.9rem; color: var(--text-dark); }
+    .cv-edu-period { font-size: 0.77rem; color: var(--ribbon); margin: 2px 0 4px; }
+    .cv-edu-note { font-size: 0.82rem; color: var(--text-soft); font-style: italic; }
+
+    .cv-exp-item { margin-bottom: 18px; }
+    .cv-exp-title { font-weight: 500; color: var(--text-dark); font-size: 0.9rem; }
+    .cv-exp-sub { font-size: 0.78rem; color: var(--ribbon); margin: 2px 0 4px; }
+    .cv-exp-desc { font-size: 0.82rem; color: var(--text-soft); line-height: 1.6; }
+
+    .cv-placeholder-note {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 0.85rem;
+      color: var(--text-soft);
+      background: var(--lace);
+      border: 1px dashed var(--ribbon);
+      border-radius: 10px;
+      padding: 10px 14px;
+      margin-top: 8px;
+    }
+
+    .cv-quote {
+      background: linear-gradient(135deg, var(--pink-blush), var(--lace));
+      border-left: 3px solid var(--rose);
+      padding: 20px 24px;
+      border-radius: 0 12px 12px 0;
+      margin-top: 20px;
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 1.05rem;
+      color: var(--text-mid);
+      line-height: 1.7;
+    }
+
+    /* ─── FOOTER ─── */
+    footer {
+      background: linear-gradient(135deg, var(--pink-blush), var(--lace));
+      border-top: 1.5px solid var(--pink-light);
+      padding: 40px 48px;
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 20px;
+    }
+
+    .footer-left {}
+    .footer-name {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 1.3rem;
+      color: var(--rose);
+      margin-bottom: 4px;
+    }
+    .footer-sub {
+      font-size: 0.8rem;
+      color: var(--text-soft);
+      font-family: 'Cormorant Garamond', serif;
+      letter-spacing: 0.08em;
+    }
+
+    .footer-social { display: flex; gap: 14px; align-items: center; }
+    .footer-social a {
+      display: flex; align-items: center; gap: 8px;
+      padding: 9px 18px;
+      background: white;
+      border: 1.5px solid var(--pink-mid);
+      border-radius: 50px;
+      text-decoration: none;
+      font-size: 0.83rem;
+      font-weight: 500;
+      color: var(--rose);
+      transition: all 0.2s;
+    }
+    .footer-social a:hover {
+      background: var(--rose);
+      color: white;
+      border-color: var(--rose);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(181,70,92,0.3);
+    }
+
+    .footer-copy {
+      width: 100%;
+      text-align: center;
+      font-size: 0.75rem;
+      color: var(--text-soft);
+      padding-top: 20px;
+      border-top: 1px solid var(--pink-light);
+      font-family: 'Cormorant Garamond', serif;
+      letter-spacing: 0.05em;
+    }
+
+    /* ─── DECORATIVE ELEMENTS ─── */
+    .floating-deco {
+      position: fixed;
+      pointer-events: none;
+      opacity: 0.07;
+      font-size: 6rem;
+      z-index: 0;
+    }
+    .fd1 { top: 10%; right: 5%; }
+    .fd2 { bottom: 20%; right: 2%; }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 960px) {
+      .home-hero { grid-template-columns: 1fr; text-align: center; }
+      .hero-photo-wrap { order: -1; }
+      .about-grid, .skills-wrap { grid-template-columns: 1fr; }
+      .porto-grid { grid-template-columns: 1fr 1fr; }
+      .cv-body { grid-template-columns: 1fr; }
+      .full-card { grid-column: 1; }
+      .menu-toggle { display: block; }
+    }
+
+    @media (max-width: 700px) {
+      .main, footer { margin-left: 0; }
+      .page { padding: 32px 20px; }
+      .porto-grid { grid-template-columns: 1fr; }
+    }
+
+    /* Animated entrance for skill bars */
+    .skill-bar-fill { width: 0; }
+    .skills-page-active .skill-bar-fill { width: var(--target-width); }
+    .cv-skill-bar-fill { width: var(--target-width); }
+
+    /* ─── LIGHTBOX / IMAGE MODAL ─── */
+    .lightbox-modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.85);
+      z-index: 2000;
+      align-items: center;
+      justify-content: center;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .lightbox-modal.active {
+      display: flex;
+    }
+
+    .lightbox-content {
+      position: relative;
+      max-width: 90%;
+      max-height: 85vh;
+      animation: scaleIn 0.3s ease;
+    }
+
+    .lightbox-img {
+      max-width: 100%;
+      max-height: 85vh;
+      object-fit: contain;
+      border-radius: 12px;
+      box-shadow: 0 10px 50px rgba(0, 0, 0, 0.4);
+    }
+
+    .lightbox-close {
+      position: absolute;
+      top: -40px;
+      right: 0;
+      background: none;
+      border: none;
+      color: white;
+      font-size: 2rem;
+      cursor: pointer;
+      padding: 0;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.2s;
+    }
+
+    .lightbox-close:hover {
+      transform: scale(1.2);
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes scaleIn {
+      from { transform: scale(0.8); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    /* ─── PORTFOLIO PREVIEW IMAGE ─── */
+    .porto-preview-img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 8px 8px 0 0;
+      cursor: pointer;
+      transition: transform 0.3s ease, filter 0.3s ease;
+    }
+
+    .porto-preview-img:hover {
+      transform: scale(1.05);
+      filter: brightness(1.1);
+    }
+  </style>
+</head>
+<body>
+
+<!-- Floating decorative -->
+<div class="floating-deco fd1">🎀</div>
+<div class="floating-deco fd2">🌸</div>
+
+<!-- Sidebar overlay -->
+<div class="sidebar-overlay"></div>
+
+<!-- ═══════════ SIDEBAR ═══════════ -->
+<aside class="sidebar">
+  <div class="sidebar-logo">Made by Love<br/>By. Ayip</div>
+  <div class="sidebar-logo">    </div>
+  <div class="sidebar-logo">    </div>
+  <div class="sidebar-tagline">IT Enthusiast · Baller</div>
+
+  <!-- SVG Bow -->
+  <svg class="bow" viewBox="0 0 80 40" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="22" cy="20" rx="18" ry="10" fill="#e8a0b0" opacity="0.7"/>
+    <ellipse cx="58" cy="20" rx="18" ry="10" fill="#e8a0b0" opacity="0.7"/>
+    <ellipse cx="22" cy="20" rx="12" ry="6" fill="#d4849a" opacity="0.5"/>
+    <ellipse cx="58" cy="20" rx="12" ry="6" fill="#d4849a" opacity="0.5"/>
+    <circle cx="40" cy="20" r="6" fill="#c9687e"/>
+    <circle cx="40" cy="20" r="3" fill="#b5465c"/>
+  </svg>
+
+  <div class="sidebar-divider"></div>
+
+  <nav>
+    <ul>
+      <li><a href="#" class="active" data-page="home"><span class="nav-icon">🏠</span> Home</a></li>
+      <li><a href="#" data-page="about"><span class="nav-icon">🌸</span> About Me</a></li>
+      <li><a href="#" data-page="skills"><span class="nav-icon">✨</span> Skills</a></li>
+      <li><a href="#" data-page="portfolio"><span class="nav-icon">🎨</span> Portfolio</a></li>
+      <li><a href="#" data-page="cv"><span class="nav-icon">📄</span> Curriculum Vitae</a></li>
+    </ul>
+  </nav>
+
+  <div class="sidebar-footer">
+    <p>Temukan aku di</p>
+    <div class="social-links">
+      <a href="https://instagram.com/" target="_blank" title="Instagram">📷</a>
+      <a href="https://tiktok.com/" target="_blank" title="TikTok">🎵</a>
+    </div>
+  </div>
+</aside>
+
+<!-- ═══════════ MAIN ═══════════ -->
+<div class="main">
+
+  <!-- TOP BAR -->
+  <div class="topbar">
+    <button class="menu-toggle" id="menu-toggle" aria-label="Toggle menu">☰</button>
+    <div class="topbar-title">🎀 Muhammad Rifqi Faeyza Aditama</div>
+    <div class="topbar-btns">
+      <a href="#" class="btn-pill btn-outline" data-page="cv" onclick="navigateTo('cv'); return false;">Lihat CV</a>
+      <a href="#" class="btn-pill btn-fill" data-page="portfolio" onclick="navigateTo('portfolio'); return false;">Portfolio</a>
+    </div>
+  </div>
+
+  <!-- ════ PAGE 1: HOME ════ -->
+  <div class="page active" id="page-home">
+    <div class="home-hero">
+      <div class="hero-text">
+        <div class="hero-greeting">Hey there!</div>
+        <h1 class="hero-name">Muhammad Rifqi<br/><span>Faeyza Aditama</span></h1>
+        <p class="hero-nickname">A.K.A ✦ Rifqi | Ayip ✦</p>
+        <div class="hero-tagline">💻 IT Enthusiast | 🏀 Baller</div>
+        <p class="hero-desc">
+          Halo! Aku Rifqi, siswa jurusan SIJA yang sangat antusias dengan pengembangan web dan teknologi jaringan. Aku suka mengeksplorasi sistem keamanan, merakit perangkat smart home, dan merancang solusi digital yang fungsional sekaligus estetik. Selamat datang di ruang digitalku!
+        </p>
+        <div class="hero-ctas">
+          <a href="#" class="btn-pill btn-fill" onclick="navigateTo('about'); return false;">Kenali Aku 🌸</a>
+          <a href="#" class="btn-pill btn-outline" onclick="navigateTo('portfolio'); return false;">Lihat Karya 🎨</a>
+        </div>
+      </div>
+
+      <div class="hero-photo-wrap">
+        <div class="deco-circle c1"></div>
+        <div class="deco-circle c2"></div>
+        <div class="photo-bow">🎀</div>
+        <div class="hero-photo-frame">
+          <img src="Foto Home.jpeg" alt="Rifqi Professional Photo">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════ PAGE 2: ABOUT ════ -->
+  <div class="page" id="page-about">
+    <div class="section-header">
+      <div class="section-eyebrow">🌸 Tentang Aku</div>
+      <h2 class="section-title">Siapa <span>Rifqi</span>?</h2>
+      <div class="section-underline"></div>
+    </div>
+
+    <div class="about-grid">
+      <!-- Family -->
+      <div class="about-card">
+        <div class="card-icon">👨‍👩‍👦‍👦</div>
+        <div class="card-label">Riwayat Keluarga</div>
+        <div class="card-title">Keluarga</div>
+        <div class="card-content">
+          Anak pertama dari 2 bersaudara. Tumbuh dengan penuh kasih sayang yang menjadi pondasi semangat dan kreativitasku hingga hari ini.
+        </div>
+      </div>
+
+      <!-- Hobi -->
+      <div class="about-card">
+        <div class="card-icon">🎧</div>
+        <div class="card-label">Hobi & Minat</div>
+        <div class="card-title">Hobi Sehari-hari</div>
+        <div class="card-content">
+          <div class="tag-list">
+            <span class="tag">🎵 Mendengarkan Musik</span>
+            <span class="tag">🏀 Bermain Basket</span>
+            <span class="tag">🎮 Bermain Game</span>
+          </div>
+          <br/>
+          <strong style="color:var(--text-mid); font-size:0.85rem;">Minat Utama:</strong>
+          <p style="margin-top:8px;">Sangat tertarik di bidang IT, khususnya <strong style="color:var(--rose)">Cyber Security</strong> — mengeksplorasi keamanan digital dan sistem perlindungan data.</p>
+        </div>
+      </div>
+
+      <!-- Education -->
+      <div class="about-card full-card">
+        <div class="card-icon">🎓</div>
+        <div class="card-label">Riwayat Pendidikan</div>
+        <div class="card-title">Perjalanan Akademik</div>
+        <div class="card-content">
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:20px; margin-top:8px;">
+            <div>
+              <div class="edu-item">
+                <div class="edu-dot"></div>
+                <div class="edu-text"><strong>PAUD - TK</strong><br/>Beetlebug</div>
+              </div>
+              <div class="edu-item">
+                <div class="edu-dot"></div>
+                <div class="edu-text"><strong>SD (Kelas 1-3)</strong><br/>SDN Tambakaji 04</div>
+              </div>
+              <div class="edu-item">
+                <div class="edu-dot"></div>
+                <div class="edu-text"><strong>SD (Kelas 4-6)</strong><br/>SDN Kalicari 02</div>
+              </div>
+            </div>
+            <div>
+              <div class="edu-item">
+                <div class="edu-dot"></div>
+                <div class="edu-text"><strong>SMP</strong><br/>SMP Negeri 15 Semarang</div>
+              </div>
+              <div class="edu-item">
+                <div class="edu-dot" style="background:var(--rose);"></div>
+                <div class="edu-text"><strong>SMK (Saat Ini)</strong><br/>SMKN 7 Semarang — Jurusan SIJA <span class="current">Current</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Cita-cita -->
+      <div class="about-card">
+        <div class="card-icon">🌟</div>
+        <div class="card-label">Tujuan Karier</div>
+        <div class="card-title">Cita-cita</div>
+        <div class="card-content">
+          Mendapat penghasilan tanpa bekerja — membangun aset digital dan sistem yang dapat bekerja secara mandiri, sehingga waktu bisa digunakan untuk hal-hal yang benar-benar berarti. <em style="color:var(--rose)">Passive income is the goal!</em>
+        </div>
+      </div>
+
+      <!-- Skills -->
+      <div class="about-card">
+        <div class="card-icon">💡</div>
+        <div class="card-label">Kelebihan Diri</div>
+        <div class="card-title">Soft Skill & Hard Skill</div>
+        <div class="card-content">
+          <div class="skills-two-col">
+            <div>
+              <div class="skill-group-title">Soft Skills</div>
+              <div class="tag-list">
+                <span class="tag">Adaptif</span>
+                <span class="tag">Kreatif</span>
+                <span class="tag">Problem Solving</span>
+                <span class="tag">Kolaboratif</span>
+                <span class="tag">Komunikatif</span>
+                <span class="tag">Teliti</span>
+              </div>
+            </div>
+            <div>
+              <div class="skill-group-title">Hard Skills</div>
+              <div class="tag-list">
+                <span class="tag">Web Dev</span>
+                <span class="tag">Networking</span>
+                <span class="tag">IoT</span>
+                <span class="tag">Cyber Security</span>
+                <span class="tag">Editing</span>
+                <span class="tag">Packet Tracer</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════ PAGE 3: SKILLS ════ -->
+  <div class="page" id="page-skills">
+    <div class="section-header">
+      <div class="section-eyebrow">✨ Kemampuan</div>
+      <h2 class="section-title">My <span>Skills</span></h2>
+      <div class="section-underline"></div>
+    </div>
+
+    <div class="skills-wrap" id="skills-wrap">
+      <!-- Skills rendered by JS -->
+    </div>
+  </div>
+
+  <!-- ════ PAGE 4: PORTFOLIO ════ -->
+  <div class="page" id="page-portfolio">
+    <div class="section-header">
+      <div class="section-eyebrow">🎨 Karya</div>
+      <h2 class="section-title">Porto<span>folio</span></h2>
+      <div class="section-underline"></div>
+    </div>
+
+    <div class="porto-grid">
+      <div class="porto-card">
+        <img src="Preview Web.png" alt="Web Development Preview" class="porto-preview-img" onclick="openLightbox(this.src)">
+        <div class="porto-body">
+          <div class="porto-category">Web Development</div>
+          <div class="porto-title">Project 1</div>
+          <div class="porto-desc">Beberapa website yang pernah saya kembangkan.</div>
+          <a href="https://s.id/ayip-web" class="porto-link">Lihat di s.id →</a>
+        </div>
+      </div>
+
+      <div class="porto-card">
+        <img src="Preview Cyber Security.png" alt="Cyber Security Preview" class="porto-preview-img" onclick="openLightbox(this.src)">
+        <div class="porto-body">
+          <div class="porto-category">Cyber Security</div>
+          <div class="porto-title">Project 2</div>
+          <div class="porto-desc">Beberapa pelatihan keamanan siber yang pernah saya ikuti.</div>
+          <a href="https://tryhackme.com/p/rifqi.faeyza14" class="porto-link">Lihat di profile TryHackMe →</a>
+        </div>
+      </div>
+
+      <div class="porto-card">
+        <img src="Preview IoT.png" alt="IoT Preview" class="porto-preview-img" onclick="openLightbox(this.src)">
+        <div class="porto-body">
+          <div class="porto-category">IoT</div>
+          <div class="porto-title">Project 3</div>
+          <div class="porto-desc">Proyek smart home IoT yang pernah saya rancang dan implementasikan.</div>
+          <a href="https://canva.link/beincxje95n70ns" class="porto-link">Lihat di Canva →</a>
+        </div>
+      </div>
+
+      <div class="porto-card">
+        <img src="Preview Kewirausahaan.png" alt="Kewirausahaan Preview" class="porto-preview-img" onclick="openLightbox(this.src)">
+        <div class="porto-body">
+          <div class="porto-category">Kewirausahaan</div>
+          <div class="porto-title">Project 4</div>
+          <div class="porto-desc">Hasil dari proyek kewirausahaan yang pernah saya buat.</div>
+          <a href="https://s.id/ayip67" class="porto-link">Lihat di s.id →</a>
+        </div>
+      </div>
+
+      <div class="porto-add-note" style="grid-column:3; grid-row:1 / span 2; display:flex; align-items:center; justify-content:center; flex-direction:column; gap:12px;">
+        <span style="font-size:2rem;">🎀</span>
+        <p style="max-width:220px;">To be continued...</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════ PAGE 5: CV ════ -->
+  <div class="page" id="page-cv">
+    <button class="cv-download-btn" onclick="downloadCV()">📥 Download CV</button>
+    <div class="section-header">
+      <div class="section-eyebrow">📄 Curriculum Vitae</div>
+      <h2 class="section-title">CV <span>Rifqi</span></h2>
+      <div class="section-underline"></div>
+    </div>
+
+    <div class="cv-wrapper">
+      <!-- CV Header -->
+      <div class="cv-header">
+        <div class="cv-photo">
+          <img src="Foto CV.jpeg" alt="Rifqi CV Photo">
+        </div>
+        <div class="cv-header-info">
+          <div class="cv-name">Muhammad Rifqi Faeyza Aditama</div>
+          <div class="cv-role">IT Enthusiast · Siswa SMKN 7 Semarang · SIJA</div>
+          <div class="cv-contacts">
+            <div class="cv-contact-item">📍 Semarang, Jawa Tengah</div>
+            <div class="cv-contact-item">📷 @riffqyi</div>
+            <div class="cv-contact-item">🎵 @kochengberbulu</div>
+            <div class="cv-contact-item">💻 Jurusan SIJA</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CV Body -->
+      <div class="cv-body">
+        <!-- LEFT COLUMN -->
+        <div class="cv-left">
+          <!-- Data Pribadi -->
+          <div class="cv-section">
+            <div class="cv-section-title">🌸 Data Pribadi</div>
+            <div class="cv-info-row"><span class="cv-info-label">Nama</span><span class="cv-info-val">Muhammad Rifqi Faeyza Aditama</span></div>
+            <div class="cv-info-row"><span class="cv-info-label">Panggilan</span><span class="cv-info-val">Rifqi / Ayip</span></div>
+            <div class="cv-info-row"><span class="cv-info-label">Status</span><span class="cv-info-val">Siswa SMK</span></div>
+            <div class="cv-info-row"><span class="cv-info-label">Keluarga</span><span class="cv-info-val">Anak ke-1 dari 2 bersaudara</span></div>
+          </div>
+
+          <!-- Skills CV -->
+          <div class="cv-section">
+            <div class="cv-section-title">✨ Skills</div>
+            <div class="cv-skill-item"><div class="cv-skill-label">Networking</div></div>
+            <div class="cv-skill-item"><div class="cv-skill-label">IoT</div></div>
+            <div class="cv-skill-item"><div class="cv-skill-label">Cisco Packet Tracer</div></div>
+            <div class="cv-skill-item"><div class="cv-skill-label">Editing</div></div>
+            <div class="cv-skill-item"><div class="cv-skill-label">HTML & CSS</div></div>
+            <div class="cv-skill-item"><div class="cv-skill-label">Cyber Security</div></div>
+            <div class="cv-skill-item"><div class="cv-skill-label">JavaScript (Dasar)</div></div>
+          </div>
+
+          <!-- Hobi -->
+          <div class="cv-section">
+            <div class="cv-section-title">🎧 Hobi</div>
+            <div class="cv-tag-wrap">
+              <span class="cv-tag">🎵 Musik</span>
+              <span class="cv-tag">🏀 Basket</span>
+              <span class="cv-tag">🎮 Gaming</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- RIGHT COLUMN -->
+        <div class="cv-right">
+          <!-- Pendidikan -->
+          <div class="cv-section">
+            <div class="cv-section-title">🎓 Riwayat Pendidikan</div>
+            <div class="cv-edu-item">
+              <div class="cv-edu-school">SMKN 7 Semarang</div>
+              <div class="cv-edu-period">2024 – Sekarang</div>
+              <div class="cv-edu-note">Jurusan Sistem Informatika Jaringan dan Aplikasi (SIJA)</div>
+            </div>
+            <div class="cv-edu-item">
+              <div class="cv-edu-school">SMP Negeri 15 Semarang</div>
+              <div class="cv-edu-period">2020 – 2024</div>
+            </div>
+            <div class="cv-edu-item">
+              <div class="cv-edu-school">SDN Kalicari 02</div>
+              <div class="cv-edu-period">Kelas 4 – 6</div>
+            </div>
+            <div class="cv-edu-item">
+              <div class="cv-edu-school">SDN Tambakaji 04</div>
+              <div class="cv-edu-period">Kelas 1 – 3</div>
+            </div>
+            <div class="cv-edu-item">
+              <div class="cv-edu-school">TK Beetlebug</div>
+              <div class="cv-edu-period">PAUD – TK</div>
+            </div>
+          </div>
+
+          <!-- Pengalaman -->
+          <div class="cv-section">
+            <div class="cv-section-title">🏆 Pengalaman</div>
+            <div class="cv-exp-item">
+              <div class="cv-exp-title">Lomba / Kompetisi</div>
+              <div class="cv-exp-sub">Still adding up...</div>
+              <div class="cv-exp-desc cv-placeholder-note">Lomba Drumband.</div>
+              <div class="cv-exp-desc cv-placeholder-note">Pesta Siaga.</div>
+              <div class="cv-exp-desc cv-placeholder-note">OSN.</div>
+              <div class="cv-exp-desc cv-placeholder-note">Olimpiade Matematika.</div>
+            </div>
+            <div class="cv-exp-item">
+              <div class="cv-exp-title">Organisasi</div>
+              <div class="cv-exp-sub">Still adding up...</div>
+              <div class="cv-exp-desc cv-placeholder-note">🏀 Eskul Basket. (2021-2023)</div>
+              <div class="cv-exp-desc cv-placeholder-note">📖 Stemba English Club. (2024-2025)</div>
+              <div class="cv-exp-desc cv-placeholder-note">🎥 Stemba Cinematography. (2025-2026)</div>
+            </div>
+            <div class="cv-exp-item">
+              <div class="cv-exp-title">Praktik Kerja Lapangan (PKL)</div>
+              <div class="cv-exp-sub">Coming soon</div>
+              <div class="cv-exp-desc cv-placeholder-note">Akan ditambahkan setelah saya menyelesaikannya.</div>
+            </div>
+          </div>
+
+          <!-- Quote -->
+          <div class="cv-quote">
+            "Aku jelek dan aku bangga."
+            <br/><span style="font-size:0.82rem; color:var(--ribbon); margin-top:8px; display:block;">— sincerely Ayip</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- end .main -->
+
+<!-- ═══════════ LIGHTBOX MODAL ═══════════ -->
+<div class="lightbox-modal" id="lightbox-modal">
+  <div class="lightbox-content">
+    <button class="lightbox-close" onclick="closeLightbox()">✕</button>
+    <img id="lightbox-img" class="lightbox-img" src="" alt="Preview">
+  </div>
+</div>
+
+<!-- ═══════════ FOOTER ═══════════ -->
+<footer>
+  <div class="footer-left">
+    <div class="footer-name">©Ayippp 🎀</div>
+    <div class="footer-sub">Muhammad Rifqi Faeyza Aditama · SIJA 3 · SMKN 7 Semarang</div>
+  </div>
+  <div class="footer-social">
+    <a href="https://www.instagram.com/riffqyi/" target="_blank">
+      📷 Instagram
+    </a>
+    <a href="https://www.tiktok.com/@kochengberbulu" target="_blank">
+      🎵 TikTok
+    </a>
+  </div>
+  <div class="footer-copy">
+    🌸 © 2026 Muhammad Rifqi Faeyza Aditama · Designed with love 🎀
+  </div>
+</footer>
+
+<script>
+  // ─── Skills Data ───
+  const skillsData = [
+    { name: 'Networking',          icon: '📡', pct: 90 },
+    { name: 'IoT',                  icon: '🏠', pct: 85 },
+    { name: 'Cisco Packet Tracer', icon: '🔧', pct: 80 },
+    { name: 'Editing',             icon: '🎬', pct: 70 },
+    { name: 'HTML & CSS',          icon: '💻', pct: 60 },
+    { name: 'Cyber Security',      icon: '🔒', pct: 50 },
+    { name: 'JavaScript (Dasar)',  icon: '⚡', pct: 40 },
+  ];
+
+  // Render skill bars
+  const wrap = document.getElementById('skills-wrap');
+  skillsData.forEach(s => {
+    wrap.innerHTML += `
+      <div class="skill-item">
+        <div class="skill-header">
+          <div class="skill-name"><span class="skill-icon">${s.icon}</span>${s.name}</div>
+          <div class="skill-pct">${s.pct}%</div>
+        </div>
+        <div class="skill-bar-bg">
+          <div class="skill-bar-fill" style="--target-width:${s.pct}%"></div>
+        </div>
+      </div>`;
+  });
+
+  // ─── Download CV ───
+  function downloadCV() {
+    try {
+      const cvWrapper = document.querySelector('.cv-wrapper');
+      if (!cvWrapper) {
+        alert('Error: Could not find CV content');
+        return;
+      }
+      
+      // Show loading message
+      const btn = document.querySelector('.cv-download-btn');
+      const originalText = btn.textContent;
+      btn.textContent = '⏳ Generating...';
+      btn.disabled = true;
+      
+      html2canvas(cvWrapper, {
+        scale: 2,
+        useCORS: true,
+        logging: false,
+        backgroundColor: '#fef9f5'
+      }).then(canvas => {
+        const image = canvas.toDataURL('image/png');
+        const link = document.createElement('a');
+        link.href = image;
+        link.download = 'Rifqi_CV.png';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        
+        // Reset button
+        btn.textContent = originalText;
+        btn.disabled = false;
+      }).catch(err => {
+        console.error('Error generating image:', err);
+        alert('Error generating CV image. Please try again.');
+        btn.textContent = originalText;
+        btn.disabled = false;
+      });
+    } catch (error) {
+      console.error('Download error:', error);
+      alert('Error: ' + error.message);
+    }
+  }
+
+  // ─── Navigation ───
+  function navigateTo(pageId) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('nav ul li a').forEach(a => a.classList.remove('active'));
+
+    document.getElementById('page-' + pageId)?.classList.add('active');
+    document.querySelector(`nav ul li a[data-page="${pageId}"]`)?.classList.add('active');
+
+    // Close sidebar after navigation
+    closeSidebar();
+
+    // Animate skill bars when skills page shown
+    if (pageId === 'skills') {
+      setTimeout(() => {
+        document.querySelectorAll('.skill-bar-fill').forEach(bar => {
+          bar.style.width = bar.style.getPropertyValue('--target-width') || bar.parentElement?.parentElement?.querySelector('.skill-pct')?.textContent || '0%';
+        });
+        document.getElementById('skills-wrap').classList.add('skills-page-active');
+      }, 80);
+    }
+
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function toggleSidebar() {
+    const sidebar = document.querySelector('.sidebar');
+    const overlay = document.querySelector('.sidebar-overlay');
+    sidebar.classList.toggle('active');
+    overlay.classList.toggle('active');
+  }
+
+  function closeSidebar() {
+    const sidebar = document.querySelector('.sidebar');
+    const overlay = document.querySelector('.sidebar-overlay');
+    sidebar.classList.remove('active');
+    overlay.classList.remove('active');
+  }
+
+  // Menu toggle button
+  document.getElementById('menu-toggle').addEventListener('click', toggleSidebar);
+
+  // Close sidebar on overlay click
+  document.querySelector('.sidebar-overlay').addEventListener('click', closeSidebar);
+
+  // Close sidebar on nav link click
+  document.querySelectorAll('nav ul li a[data-page]').forEach(a => {
+    a.addEventListener('click', e => {
+      e.preventDefault();
+      navigateTo(a.dataset.page);
+    });
+  });
+
+  // Topbar button clicks
+  document.querySelectorAll('.topbar-btns a[data-page]').forEach(a => {
+    a.addEventListener('click', e => {
+      e.preventDefault();
+      navigateTo(a.dataset.page);
+    });
+  });
+
+  // Trigger skill bar animation on load if skills is first active
+  window.addEventListener('load', () => {
+    const active = document.querySelector('.page.active');
+    if (active?.id === 'page-skills') {
+      setTimeout(() => document.getElementById('skills-wrap').classList.add('skills-page-active'), 300);
+    }
+  });
+
+  // ─── Lightbox Functions ───
+  function openLightbox(imageSrc) {
+    const modal = document.getElementById('lightbox-modal');
+    const img = document.getElementById('lightbox-img');
+    img.src = imageSrc;
+    modal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeLightbox() {
+    const modal = document.getElementById('lightbox-modal');
+    modal.classList.remove('active');
+    document.body.style.overflow = 'auto';
+  }
+
+  // Close lightbox when clicking on the background
+  document.getElementById('lightbox-modal').addEventListener('click', (e) => {
+    if (e.target.id === 'lightbox-modal') {
+      closeLightbox();
+    }
+  });
+
+  // Close lightbox with Escape key
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      closeLightbox();
+    }
+  });
+</script>
+</body>
+</html>
